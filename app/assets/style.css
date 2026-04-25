@@ -1,0 +1,135 @@
+/* Custom CSS for Streamlit Steel Rebar Property Prediction App */
+
+/* Main container */
+.stApp {
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0d0d2b 100%);
+}
+
+/* Headers */
+h1 {
+    background: linear-gradient(90deg, #00d2ff, #3a7bd5, #6dd5ed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px;
+}
+
+h2, h3 {
+    color: #e0e6ed !important;
+    font-weight: 600 !important;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0a0a1a 0%, #141428 100%);
+    border-right: 1px solid rgba(58, 123, 213, 0.2);
+}
+
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    background: none;
+    -webkit-text-fill-color: #c8d6e5;
+}
+
+/* Metric cards */
+[data-testid="stMetric"] {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-testid="stMetric"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(58, 123, 213, 0.15);
+}
+
+[data-testid="stMetricValue"] {
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 4px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, #3a7bd5, #00d2ff) !important;
+    color: white !important;
+}
+
+/* Buttons */
+.stButton > button {
+    background: linear-gradient(135deg, #3a7bd5, #00d2ff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 32px;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(58, 123, 213, 0.3);
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(58, 123, 213, 0.5);
+}
+
+/* Expander */
+.streamlit-expanderHeader {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* Dataframe */
+[data-testid="stDataFrame"] {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Success / Error boxes */
+.stAlert {
+    border-radius: 10px;
+    border-left-width: 4px;
+}
+
+/* File uploader */
+[data-testid="stFileUploader"] {
+    border: 2px dashed rgba(58, 123, 213, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+/* Number inputs */
+.stNumberInput > div > div > input {
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Select boxes */
+.stSelectbox > div > div {
+    border-radius: 8px;
+}
+
+/* Divider */
+hr {
+    border-color: rgba(58, 123, 213, 0.15) !important;
+}
