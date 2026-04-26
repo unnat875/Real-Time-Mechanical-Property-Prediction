@@ -178,11 +178,28 @@ def plot_feature_importance(
     top_n: int = 15,
 ) -> None:
     """Plot horizontal bar chart of feature importances."""
-    if not hasattr(model, "feature_importances_"):
-        logger.warning(f"  Model {model_name} has no feature_importances_ attribute")
+    # Try to extract feature importances from wrapped models
+    importances = None
+    if hasattr(model, "feature_importances_"):
+        importances = model.feature_importances_
+    elif hasattr(model, "estimators_"):
+        # MultiOutputRegressor — check first sub-estimator
+        sub = model.estimators_[0]
+        if hasattr(sub, "feature_importances_"):
+            importances = sub.feature_importances_
+        elif hasattr(sub, "estimators_"):
+            # StackingRegressor — average importances from base learners
+            base_importances = []
+            for est in sub.estimators_:
+                if hasattr(est, "feature_importances_"):
+                    base_importances.append(est.feature_importances_)
+            if base_importances:
+                importances = np.mean(base_importances, axis=0)
+
+    if importances is None:
+        logger.warning(f"  Model {model_name} has no extractable feature importances")
         return
 
-    importances = model.feature_importances_
     importance_df = pd.DataFrame(
         {"feature": feature_names, "importance": importances}
     ).sort_values("importance", ascending=True).tail(top_n)

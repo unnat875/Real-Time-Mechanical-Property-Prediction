@@ -1,0 +1,37 @@
+17:08:01 │ INFO     │ Step 1/4: Loading raw data...
+17:08:01 │ INFO     │ Loading raw data from /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/data/raw/INTERN_DATA.csv
+17:08:01 │ INFO     │ Loaded 5156 rows × 26 columns
+17:08:01 │ INFO     │ Data validation passed ✓
+17:08:01 │ INFO     │ Step 2/4: Preprocessing...
+17:08:01 │ INFO     │ Starting preprocessing pipeline...
+17:08:01 │ INFO     │ Stage 1 complete: imputed ['CHEM1', 'CHEM2', 'CHEM5', 'CHEM10'] by GRADE
+17:08:01 │ INFO     │ Stage 2 complete: imputed ['TEMP2', 'TEMP5'] by DIAMETER
+17:08:01 │ INFO     │ Stage 3 complete: imputed ['QUALITY1', 'QUALITY2'] by (GRADE × DIAMETER)
+17:08:01 │ INFO     │ Added derived feature: uts_ys_ratio
+17:08:01 │ INFO     │ Preprocessing complete: 0 nulls in critical columns ✓
+17:08:01 │ INFO     │ Step 3/4: Splitting by diameter...
+17:08:01 │ INFO     │ Diameter 10mm: 1439 rows
+17:08:01 │ INFO     │ Diameter 12mm: 1917 rows
+17:08:01 │ INFO     │ Diameter 16mm: 1800 rows
+17:08:01 │ INFO     │ Step 4/4: Training models...
+17:08:01 │ INFO     │ 
+============================================================
+17:08:01 │ INFO     │ Training pipeline for diameter 10mm (1439 samples)
+17:08:01 │ INFO     │ ============================================================
+17:08:01 │ INFO     │   Step 1: Outlier handling...
+17:08:01 │ INFO     │ IQR clipping: 487 values clipped across 20 columns
+17:08:01 │ INFO     │ Isolation Forest: flagged 44 multivariate outliers (3.1%)
+17:08:01 │ INFO     │ Removed 44 outlier rows → 1395 remaining
+17:08:01 │ INFO     │ Feature matrix: 1395 rows × 23 features (including 3 encoded grade columns)
+17:08:01 │ INFO     │   Train: 1116, Test: 279
+17:08:01 │ INFO     │   Fitting IterativeImputer for runtime robustness...
+17:08:01 │ INFO     │   Optimizing RandomForest (30 Optuna trials)...
+
+╔══════════════════════════════════════════════════════════════╗
+║  Real-Time Mechanical Property Prediction — Training v2     ║
+║  Optuna + Stacking Ensemble + Outlier Handling              ║
+╚══════════════════════════════════════════════════════════════╝
+    
+17:08:31 │ INFO     │     Best CV R²: 0.3981 (30.2s)
+17:08:31 │ INFO     │     Best params: {'n_estimators': 365, 'max_depth': 20, 'min_samples_split': 6, 'min_samples_leaf': 2, 'max_features': 'log2'}
+17:08:31 │ INFO     │   Optimizing XGBoost (30 Optuna trials)...

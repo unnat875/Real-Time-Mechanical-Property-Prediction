@@ -45,8 +45,8 @@ def print_banner() -> None:
     """Print a nice startup banner."""
     banner = """
 ╔══════════════════════════════════════════════════════════════╗
-║     Real-Time Mechanical Property Prediction — Training     ║
-║     Steel Rebar UTS & YS Prediction Pipeline                ║
+║  Real-Time Mechanical Property Prediction — Training v2     ║
+║  Optuna + Stacking Ensemble + Outlier Handling              ║
 ╚══════════════════════════════════════════════════════════════╝
     """
     print(banner)
@@ -55,26 +55,28 @@ def print_banner() -> None:
 def print_summary(results: list[dict]) -> None:
     """Print final training summary table."""
     print("\n")
-    print("=" * 72)
+    print("=" * 80)
     print("  TRAINING SUMMARY")
-    print("=" * 72)
+    print("=" * 80)
     print(
-        f"  {'Diameter':<12} {'Best Model':<16} {'R² (combined)':<16} "
-        f"{'RMSE':<10} {'MAPE':<10}"
+        f"  {'Diameter':<10} {'Best Model':<14} {'R² (combined)':<16} "
+        f"{'RMSE':<10} {'MAPE':<10} {'Overfit':<12}"
     )
-    print("  " + "-" * 64)
+    print("  " + "-" * 72)
 
     for r in results:
         m = r["metrics"]
+        overfit = r.get("overfitting", {}).get("diagnosis", "N/A")
         print(
-            f"  {r['diameter']}mm{'':<8} "
-            f"{r['best_model']:<16} "
+            f"  {r['diameter']}mm{'':<6} "
+            f"{r['best_model']:<14} "
             f"{m['combined_r2']:<16.4f} "
             f"{m['combined_rmse']:<10.2f} "
-            f"{m['combined_mape']:<10.4f}"
+            f"{m['combined_mape']:<10.4f} "
+            f"{overfit:<12}"
         )
 
-    print("=" * 72)
+    print("=" * 80)
     print()
 
 
@@ -94,6 +96,12 @@ def main():
         choices=VALID_DIAMETERS,
         default=None,
         help="Train only for a specific diameter (10, 12, or 16).",
+    )
+    parser.add_argument(
+        "--n-trials",
+        type=int,
+        default=80,
+        help="Number of Optuna trials per model (default: 80).",
     )
     parser.add_argument(
         "--verbose", "-v",
@@ -139,6 +147,7 @@ def main():
         result = train_pipeline(
             diameter=diameter,
             df=diameter_dfs[diameter],
+            n_trials=args.n_trials,
             verbose=args.verbose,
         )
         results.append(result)

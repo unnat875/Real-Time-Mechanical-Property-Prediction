@@ -9,6 +9,10 @@ original 22May.ipynb notebook.
 import logging
 
 import pandas as pd
+from sklearn.experimental import enable_iterative_imputer  # noqa
+from sklearn.impute import IterativeImputer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 from src.config import (
     DIAMETER_COL,
@@ -151,3 +155,24 @@ def preprocess_pipeline(df: pd.DataFrame) -> pd.DataFrame:
         logger.info("Preprocessing complete: 0 nulls in critical columns ✓")
 
     return df
+
+
+def build_imputation_pipeline() -> Pipeline:
+    """
+    Build an IterativeImputer pipeline that models feature relationships
+    to impute missing values — far superior to median fill.
+    
+    IterativeImputer uses round-robin regression: it models each feature
+    with missing values as a function of all other features, iteratively
+    refining estimates. This preserves inter-feature correlations.
+    """
+    pipeline = Pipeline([
+        ("scaler", StandardScaler()),
+        ("imputer", IterativeImputer(
+            max_iter=10,
+            random_state=42,
+            sample_posterior=False,
+            skip_complete=True,
+        )),
+    ])
+    return pipeline

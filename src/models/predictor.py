@@ -11,6 +11,7 @@ from pathlib import Path
 
 import joblib
 import numpy as np
+import pandas as pd
 
 from src.config import MODELS_DIR, UTS_YS_MIN_RATIO, VALID_DIAMETERS
 from src.features.encoder import prepare_inference_input
@@ -28,6 +29,8 @@ class PredictionResult:
     passes_quality_gate: bool
     model_name: str
     diameter: int
+    confidence: str
+    missing_features: list[str]
 
 
 class ModelRegistry:
@@ -59,6 +62,7 @@ class ModelRegistry:
         artifacts = {
             "model": joblib.load(model_dir / "model.joblib"),
             "encoder": joblib.load(model_dir / "encoder.joblib"),
+            "imputer": joblib.load(model_dir / "imputer.joblib") if (model_dir / "imputer.joblib").exists() else None,
             "feature_names": joblib.load(model_dir / "feature_names.joblib"),
             "metadata": joblib.load(model_dir / "metadata.joblib"),
         }
@@ -118,13 +122,26 @@ class ModelRegistry:
         artifacts = self._load_diameter(diameter)
         model = artifacts["model"]
         encoder = artifacts["encoder"]
+        imputer = artifacts["imputer"]
         feature_names = artifacts["feature_names"]
+
+        # Track missing features
+        missing_features = []
+        for fname in feature_names:
+            if fname not in features and not fname.startswith("GRADE_"):
+                missing_features.append(fname)
+            elif pd.isna(features.get(fname, np.nan)):
+                missing_features.append(fname)
 
         # Build input record
         record = {**features, "GRADE": grade}
 
-        # Prepare feature vector
+        # Prepare feature vector (will contain NaNs for missing)
         X = prepare_inference_input(record, encoder, feature_names)
+
+        # Impute missing values if any and if imputer is available
+        if imputer is not None:
+            X = imputer.transform(X)
 
         # Predict
         prediction = model.predict(X)
@@ -139,6 +156,8 @@ class ModelRegistry:
             passes_quality_gate=ratio >= UTS_YS_MIN_RATIO,
             model_name=artifacts["metadata"]["algorithm"],
             diameter=diameter,
+            confidence="degraded" if missing_features else "full",
+            missing_features=missing_features,
         )
 
     def predict_batch(

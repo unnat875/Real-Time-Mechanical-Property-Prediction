@@ -136,10 +136,8 @@ def prepare_inference_input(
         elif col in record:
             feature_dict[col] = record[col]
         else:
-            raise ValueError(
-                f"Missing feature '{col}' in input. "
-                f"Required features: {feature_names}"
-            )
+            # Leave missing features as NaN for the IterativeImputer
+            feature_dict[col] = np.nan
 
     # Build array in correct order
     feature_vector = np.array(

@@ -72,11 +72,11 @@ class TestPrepareInferenceInput:
         X = prepare_inference_input(record, encoder, feature_names)
         assert X.shape == (1, len(feature_names))
 
-    def test_missing_feature_raises(self, sample_df):
+    def test_missing_feature_assigns_nan(self, sample_df):
         _, _, encoder, feature_names = prepare_features(sample_df)
         record = {"GRADE": "GR1", "CHEM1": 0.225}  # Missing most features
-        with pytest.raises(ValueError, match="Missing feature"):
-            prepare_inference_input(record, encoder, feature_names)
+        X = prepare_inference_input(record, encoder, feature_names)
+        assert np.isnan(X).any()  # Should contain NaNs for missing features
 
     def test_missing_grade_raises(self, sample_df):
         _, _, encoder, feature_names = prepare_features(sample_df)
