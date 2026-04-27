@@ -35,3 +35,119 @@
 17:08:31 │ INFO     │     Best CV R²: 0.3981 (30.2s)
 17:08:31 │ INFO     │     Best params: {'n_estimators': 365, 'max_depth': 20, 'min_samples_split': 6, 'min_samples_leaf': 2, 'max_features': 'log2'}
 17:08:31 │ INFO     │   Optimizing XGBoost (30 Optuna trials)...
+17:09:26 │ INFO     │     Best CV R²: 0.3925 (52.9s)
+17:09:26 │ INFO     │     Best params: {'n_estimators': 469, 'max_depth': 9, 'learning_rate': 0.007374260473884499, 'subsample': 0.8747213616831372, 'colsample_bytree': 0.6003300983366743, 'reg_alpha': 0.0032558421262894716, 'reg_lambda': 9.869683487089918e-06, 'min_child_weight': 2}
+17:09:26 │ INFO     │   Optimizing LightGBM (30 Optuna trials)...
+17:15:37 │ INFO     │     Best CV R²: 0.3811 (369.7s)
+17:15:37 │ INFO     │     Best params: {'n_estimators': 315, 'max_depth': 8, 'learning_rate': 0.007942895747037047, 'num_leaves': 85, 'subsample': 0.708652481838511, 'colsample_bytree': 0.5732332816322917, 'reg_alpha': 2.431627061348249e-07, 'reg_lambda': 0.00010269636717766271}
+17:15:37 │ INFO     │   Training Stacking Ensemble...
+17:17:58 │ INFO     │     Stacking CV R²: 0.3926 (141.2s)
+17:17:59 │ INFO     │ 
+  Model Comparison:
+       Model  CV R² Test R²  RMSE   MAPE Time (s)
+RandomForest 0.3981  0.3772 14.64 0.0172     30.2
+     XGBoost 0.3925  0.3655 14.74 0.0175     52.9
+    LightGBM 0.3811  0.3650 14.78 0.0175    369.7
+    Stacking 0.3926  0.3700 14.70 0.0173    141.2
+
+17:17:59 │ INFO     │   ★ Best model: RandomForest
+17:17:59 │ INFO     │   Overfitting check: SEVERE OVERFITTING (gap = 0.4340)
+17:17:59 │ INFO     │   Generating evaluation plots for diameter 10mm...
+17:18:00 │ INFO     │   Saved: /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/outputs/model_comparison/actual_vs_predicted_10mm.png
+17:18:00 │ INFO     │   Saved: /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/outputs/residuals/residuals_10mm.png
+17:18:01 │ INFO     │   Saved: /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/outputs/feature_importance/feature_importance_10mm.png
+17:18:01 │ INFO     │   Generating learning curves for diameter 10mm...
+17:18:11 │ INFO     │   Saved: /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/outputs/diagnostics/learning_curve_10mm.png
+17:18:11 │ INFO     │   Saved artifacts to /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/models/diameter_10
+17:18:11 │ INFO     │ 
+============================================================
+17:18:11 │ INFO     │ Training pipeline for diameter 12mm (1917 samples)
+17:18:11 │ INFO     │ ============================================================
+17:18:11 │ INFO     │   Step 1: Outlier handling...
+17:18:11 │ INFO     │ IQR clipping: 611 values clipped across 20 columns
+17:18:11 │ INFO     │ Isolation Forest: flagged 58 multivariate outliers (3.0%)
+17:18:11 │ INFO     │ Removed 58 outlier rows → 1859 remaining
+17:18:11 │ INFO     │ Feature matrix: 1859 rows × 23 features (including 3 encoded grade columns)
+17:18:11 │ INFO     │   Train: 1487, Test: 372
+17:18:11 │ INFO     │   Fitting IterativeImputer for runtime robustness...
+17:18:11 │ INFO     │   Optimizing RandomForest (30 Optuna trials)...
+17:19:06 │ INFO     │     Best CV R²: 0.3749 (54.4s)
+17:19:06 │ INFO     │     Best params: {'n_estimators': 318, 'max_depth': 27, 'min_samples_split': 16, 'min_samples_leaf': 6, 'max_features': 0.5}
+17:19:06 │ INFO     │   Optimizing XGBoost (30 Optuna trials)...
+17:19:52 │ INFO     │     Best CV R²: 0.3688 (43.5s)
+17:19:52 │ INFO     │     Best params: {'n_estimators': 500, 'max_depth': 10, 'learning_rate': 0.006268772038033429, 'subsample': 0.7801410972889912, 'colsample_bytree': 0.7173881315181515, 'reg_alpha': 0.0006569269483505232, 'reg_lambda': 4.981121261572045, 'min_child_weight': 6}
+17:19:52 │ INFO     │   Optimizing LightGBM (30 Optuna trials)...
+19:58:23 │ INFO     │     Best CV R²: 0.3616 (8583.1s)
+19:58:23 │ INFO     │     Best params: {'n_estimators': 302, 'max_depth': 13, 'learning_rate': 0.0073573826518056615, 'num_leaves': 22, 'subsample': 0.7707972197157814, 'colsample_bytree': 0.8264715847382443, 'reg_alpha': 0.012223045143682465, 'reg_lambda': 2.385288361187035e-07}
+19:58:23 │ INFO     │   Training Stacking Ensemble...
+20:25:53 │ INFO     │     Stacking CV R²: 0.3740 (1649.7s)
+20:25:53 │ INFO     │ 
+  Model Comparison:
+       Model  CV R² Test R²  RMSE   MAPE Time (s)
+RandomForest 0.3749  0.4232 13.91 0.0164     54.4
+     XGBoost 0.3688  0.4097 14.05 0.0165     43.5
+    LightGBM 0.3616  0.4275 13.86 0.0164   8583.1
+    Stacking 0.3740  0.4190 13.94 0.0165   1649.7
+
+20:25:53 │ INFO     │   ★ Best model: LightGBM
+20:25:53 │ INFO     │   Overfitting check: MODERATE OVERFITTING (gap = 0.1411)
+20:25:53 │ INFO     │   Generating evaluation plots for diameter 12mm...
+20:25:53 │ INFO     │   Saved: /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/outputs/model_comparison/actual_vs_predicted_12mm.png
+20:25:53 │ INFO     │   Saved: /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/outputs/residuals/residuals_12mm.png
+20:25:54 │ INFO     │   Saved: /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/outputs/feature_importance/feature_importance_12mm.png
+20:25:54 │ INFO     │   Generating learning curves for diameter 12mm...
+21:15:15 │ INFO     │   Saved: /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/outputs/diagnostics/learning_curve_12mm.png
+21:15:15 │ INFO     │   Saved artifacts to /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/models/diameter_12
+21:15:15 │ INFO     │ 
+============================================================
+21:15:15 │ INFO     │ Training pipeline for diameter 16mm (1800 samples)
+21:15:15 │ INFO     │ ============================================================
+21:15:15 │ INFO     │   Step 1: Outlier handling...
+21:15:15 │ INFO     │ IQR clipping: 594 values clipped across 20 columns
+21:15:15 │ INFO     │ Isolation Forest: flagged 54 multivariate outliers (3.0%)
+21:15:15 │ INFO     │ Removed 54 outlier rows → 1746 remaining
+21:15:15 │ INFO     │ Feature matrix: 1746 rows × 23 features (including 3 encoded grade columns)
+21:15:15 │ INFO     │   Train: 1396, Test: 350
+21:15:15 │ INFO     │   Fitting IterativeImputer for runtime robustness...
+21:15:15 │ INFO     │   Optimizing RandomForest (30 Optuna trials)...
+21:26:21 │ INFO     │     Best CV R²: 0.5014 (665.4s)
+21:26:21 │ INFO     │     Best params: {'n_estimators': 245, 'max_depth': 13, 'min_samples_split': 3, 'min_samples_leaf': 2, 'max_features': 'log2'}
+21:26:21 │ INFO     │   Optimizing XGBoost (30 Optuna trials)...
+22:14:07 │ INFO     │     Best CV R²: 0.4974 (2861.7s)
+22:14:07 │ INFO     │     Best params: {'n_estimators': 358, 'max_depth': 15, 'learning_rate': 0.007887403749766403, 'subsample': 0.6767628906516734, 'colsample_bytree': 0.6189806129242861, 'reg_alpha': 0.0017219014921699759, 'reg_lambda': 0.07562475564020446, 'min_child_weight': 1}
+22:14:07 │ INFO     │   Optimizing LightGBM (30 Optuna trials)...
+22:20:20 │ INFO     │     Best CV R²: 0.4922 (371.3s)
+22:20:20 │ INFO     │     Best params: {'n_estimators': 340, 'max_depth': 12, 'learning_rate': 0.013389590484609363, 'num_leaves': 74, 'subsample': 0.7310678440792329, 'colsample_bytree': 0.5378696166156578, 'reg_alpha': 3.109685175320665e-07, 'reg_lambda': 5.412257203369068e-07}
+22:20:20 │ INFO     │   Training Stacking Ensemble...
+22:22:48 │ INFO     │     Stacking CV R²: 0.5039 (148.9s)
+22:22:49 │ INFO     │ 
+  Model Comparison:
+       Model  CV R² Test R²  RMSE   MAPE Time (s)
+RandomForest 0.5014  0.4533 12.31 0.0146    665.4
+     XGBoost 0.4974  0.4361 12.50 0.0146   2861.7
+    LightGBM 0.4922  0.4337 12.53 0.0148    371.3
+    Stacking 0.5039  0.4499 12.34 0.0145    148.9
+
+22:22:49 │ INFO     │   ★ Best model: RandomForest
+22:22:49 │ INFO     │   Overfitting check: SEVERE OVERFITTING (gap = 0.3515)
+22:22:49 │ INFO     │   Generating evaluation plots for diameter 16mm...
+22:22:49 │ INFO     │   Saved: /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/outputs/model_comparison/actual_vs_predicted_16mm.png
+22:22:49 │ INFO     │   Saved: /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/outputs/residuals/residuals_16mm.png
+22:22:49 │ INFO     │   Saved: /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/outputs/feature_importance/feature_importance_16mm.png
+22:22:49 │ INFO     │   Generating learning curves for diameter 16mm...
+22:22:56 │ INFO     │   Saved: /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/outputs/diagnostics/learning_curve_16mm.png
+22:22:56 │ INFO     │   Saved artifacts to /Users/unnat/Mechanical_Property_Prediction/Real-Time-Mechanical-Property-Prediction/models/diameter_16
+22:22:56 │ INFO     │ Total training time: 18895.9s
+22:22:56 │ INFO     │ All models saved to models/ directory ✓
+
+
+================================================================================
+  TRAINING SUMMARY
+================================================================================
+  Diameter   Best Model     R² (combined)    RMSE       MAPE       Overfit     
+  ------------------------------------------------------------------------
+  10mm       RandomForest   0.3772           14.64      0.0172     SEVERE OVERFITTING
+  12mm       LightGBM       0.4275           13.86      0.0164     MODERATE OVERFITTING
+  16mm       RandomForest   0.4533           12.31      0.0146     SEVERE OVERFITTING
+================================================================================
+
